@@ -29,6 +29,12 @@ public class SoldierController : BoardElementController
         try
         {
             CurrentCell = Utils.GetGameObjectAtLocation(transform.position, "Cell").collider.GetComponent<Cell>();
+            if (CurrentCell.State == CellState.Unavailable)
+            {
+                Debug.Log("Spawn point collides with another building!");
+                gameObject.SetActive(false);
+                return;
+            }
             transform.position = CurrentCell.transform.position;
             GameManager.instance.Soldiers++;
         }
